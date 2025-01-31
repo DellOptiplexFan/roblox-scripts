@@ -57,6 +57,10 @@ local spinningCrew = false
 local spinningDevilsChains = false
 local spinningRaces = false
 local spinningDeity = false
+local spinningFirePower = false
+local spinningServant = false
+local spinningShadowPower = false
+local spinningEgo = false
 
 local autospinKekkeiGenkai = Tab:CreateToggle({
    Name = "Autospin KekkeiGenkai",
@@ -852,6 +856,151 @@ local autospinTransformation = Tab:CreateToggle({
                     }
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                                                 
+             end
+          end)()
+       end
+    end,
+ })
+
+  local autospinFirePower = Tab:CreateToggle({
+    Name = "Autospin Fire Power",
+    CurrentValue = false,
+    Flag = "autospin_firepower",
+    Callback = function(Value)
+       spinningFirePower = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningFirePower do
+             task.wait(0.25)
+               local args = {
+                  [1] = "FirePower",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Fire Power IV"] = false,
+                     ["Mega Fire Power VIII"] = true,
+                     ["Fire Power I"] = false,
+                     ["Fire Power VI"] = false,
+                     ["Fire Power III"] = false,
+                     ["Mega Fire Power VII"] = true,
+                     ["Fire Power V"] = false,
+                     ["Fire Power VIII"] = true,
+                     ["Fire Power II"] = false,
+                     ["Fire Power VII"] = true
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                                              
+             end
+          end)()
+       end
+    end,
+ })
+
+   local autospinServant = Tab:CreateToggle({
+    Name = "Autospin Servant",
+    CurrentValue = false,
+    Flag = "autospin_servant",
+    Callback = function(Value)
+       spinningServant = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningServant do
+             task.wait(0.25)
+               local args = {
+                  [1] = "Servant",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Alter Ego"] = false,
+                     ["Berserker"] = false,
+                     ["Avenger"] = false,
+                     ["Assassin"] = false,
+                     ["Archer"] = false,
+                     ["Lancer"] = false,
+                     ["Caster"] = false,
+                     ["Rider"] = false,
+                     ["Ruler"] = false,
+                     ["Saber"] = false
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                                 
+             end
+          end)()
+       end
+    end,
+ })
+
+    local autospinShadowPower = Tab:CreateToggle({
+    Name = "Autospin Shadow Power",
+    CurrentValue = false,
+    Flag = "autospin_shadowpower",
+    Callback = function(Value)
+       spinningShadowPower = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningShadowPower do
+             task.wait(0.25)
+               local args = {
+                  [1] = "ShadowPower",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Apostles' Blood"] = false,
+                     ["Behelit"] = false,
+                     ["Eclipse"] = false,
+                     ["Leather Vest"] = false,
+                     ["Iron Bow"] = false,
+                     ["Broken Shield"] = false,
+                     ["Sacrifice Brand"] = false,
+                     ["Chainmail"] = false,
+                     ["Guts's Dagger"] = false,
+                     ["Steel Blade"] = false,
+                     ["Throwing Knives"] = false,
+                     ["Rusty Blade"] = false,
+                     ["Idea of Evil"] = false,
+                     ["God Aura"] = false,
+                     ["Slan's Touch"] = false,
+                     ["Skull Crest"] = false,
+                     ["Arm Cannon"] = false,
+                     ["Void Tear"] = false,
+                     ["Zodd's Axe"] = false,
+                     ["Mist Form"] = false,
+                     ["Femto Wings"] = false,
+                     ["Knight Sword"] = false,
+                     ["Berserker Armor"] = false,
+                     ["Dragonslayer"] = false
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                               
+             end
+          end)()
+       end
+    end,
+ })
+
+   local autospinShadowPower = Tab:CreateToggle({
+    Name = "Autospin Ego",
+    CurrentValue = false,
+    Flag = "autospin_ego",
+    Callback = function(Value)
+       spinningEgo = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningEgo do
+             task.wait(0.25)
+               local args = {
+                  [1] = "Ego",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Precision Playmakers"] = true,
+                     ["Ego's Elite"] = false,
+                     ["Victory Visionaries"] = false,
+                     ["Offense Oracles"] = true,
+                     ["Goal Guardians"] = false,
+                     ["Champion's Charisma"] = false,
+                     ["Futuristic Frontliners"] = false,
+                     ["Striker's Spirit"] = false,
+                     ["Team Top-Notch"] = false
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                           
              end
           end)()
        end
