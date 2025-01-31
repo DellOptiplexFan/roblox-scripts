@@ -863,195 +863,152 @@ local Section = Tab:CreateSection("Mob Farm")
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
 local TweenService = game:GetService("TweenService")
 local workspace = game.workspace
 
-local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-if not humanoidRootPart then
-    return
+local farmingState = {
+    isActive = false,
+    selectedMob = nil,
+    currentConnection = nil,
+    lastAttempt = 0,
+    retryDelay = 1
+}
+
+local function cleanupFarming()
+    if farmingState.currentConnection then
+        farmingState.currentConnection:Disconnect()
+        farmingState.currentConnection = nil
+    end
 end
 
-local mobFolder = workspace:FindFirstChild("Server")
-if mobFolder then
-    mobFolder = mobFolder:FindFirstChild("WorldMobs")
-    if mobFolder then
-        local worlds = {
-            "Arcadia Realm", "Bankai Dimension", "Clover Kingdom", "Cursed School", 
-            "Earthling Planet", "Enies Castle", "Football Academy", "Force Town", 
-            "Hunter Village", "Kaiju World", "Land of Swords", "Leveling Town", 
-            "Nazare", "Ninja Village", "Piece Marine", "Pink Land", "Psycho City", 
-            "Ragnarok Island", "Saw City", "Sin World", "Slime Village", "Snowy Forest", 
-            "Supernatural Metropolis", "Titan City", "Tokyo Town", "World of Darkness", 
-            "XMAS Event", "Z-City"
-        }
-
-        local farmingMobs = false
-
-        local function toggleMobFarming(Value)
-            farmingMobs = Value
-            if Value then
-                coroutine.wrap(function()
-                    while farmingMobs do
-                        for _, folderName in ipairs(worlds) do
-                            if not farmingMobs then break end
-                            local currentFolder = mobFolder:FindFirstChild(folderName)
-                            if currentFolder and #currentFolder:GetChildren() > 0 then
-                                for _, mob in ipairs(currentFolder:GetChildren()) do
-                                    if not farmingMobs then break end
-
-                                    local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                                    local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
-                                    tween:Play()
-
-                                    if mob:GetAttribute("Dead") ~= true then
-                                        local attributeChanged
-                                        attributeChanged = mob:GetAttributeChangedSignal("Dead"):Connect(function()
-                                            if mob:GetAttribute("Dead") == true then
-                                                attributeChanged:Disconnect()
-                                            end
-                                        end)
-                                        mob:GetAttributeChangedSignal("Dead"):Wait()
-                                    end
-                                end
-                                break
-                            else
-                            end
-                        end
-                        task.wait()
-                    end
-                end)()
+local function startFarming()
+    if not farmingState.selectedMob then return end
+    
+    cleanupFarming()
+    
+    farmingState.isActive = true
+    coroutine.wrap(function()
+        while farmingState.isActive do
+            local character = player.Character
+            if not character then
+                task.wait(0.5)
+                continue
             end
-        end
 
-        local farmToggle = Tab:CreateToggle({
-            Name = "Auto Farm All Mobs",
-            CurrentValue = false,
-            Flag = "auto_farm_all_mobs",
-            Callback = function(Value)
-                toggleMobFarming(Value)
-            end,
-        })
-    else
-        warn("WorldMobs folder not found")
-    end
-else
-    warn("Server folder not found")
-end
-
-local mobFolder = workspace:FindFirstChild("Server")
-if mobFolder then
-    mobFolder = mobFolder:FindFirstChild("WorldMobs")
-    if mobFolder then
-        local worlds = {
-            "Arcadia Realm", "Bankai Dimension", "Clover Kingdom", "Cursed School", 
-            "Earthling Planet", "Enies Castle", "Football Academy", "Force Town", 
-            "Hunter Village", "Kaiju World", "Land of Swords", "Leveling Town", 
-            "Nazare", "Ninja Village", "Piece Marine", "Pink Land", "Psycho City", 
-            "Ragnarok Island", "Saw City", "Sin World", "Slime Village", "Snowy Forest", 
-            "Supernatural Metropolis", "Titan City", "Tokyo Town", "World of Darkness", 
-            "XMAS Event", "Z-City"
-        }
-
-        local farmingMobs = false
-        local selectedMob = nil
-
-        local function getAvailableMobs()
-            local mobNames = {}
-            for _, worldName in ipairs(worlds) do
-                local worldFolder = mobFolder:FindFirstChild(worldName)
-                if worldFolder then
-                    for _, mob in ipairs(worldFolder:GetChildren()) do
-                        if not table.find(mobNames, mob.Name) then
-                            table.insert(mobNames, mob.Name)
-                        end
-                    end
-                end
+            local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+            if not humanoidRootPart then
+                task.wait(0.5)
+                continue
             end
-            return mobNames
-        end
 
-        local mobDropdown = Tab:CreateDropdown({
-            Name = "Select Mob to Farm",
-            Options = getAvailableMobs(),
-            CurrentOption = {},
-            MultipleOptions = false,
-            Flag = "mob_selection",
-            Callback = function(selected)
-                selectedMob = selected[1]
-            end,
-        })
+            local currentTime = tick()
+            if currentTime - farmingState.lastAttempt < farmingState.retryDelay then
+                task.wait(0.1)
+                continue
+            end
+            
+            farmingState.lastAttempt = currentTime
 
-        local refreshButton = Tab:CreateButton({
-            Name = "Refresh Mob List",
-            Callback = function()
-                mobDropdown:Refresh(getAvailableMobs())
-            end,
-        })
-
-local function toggleMobFarming(Value)
-    if Value and not selectedMob then
-        warn("No mob selected!")
-        farmToggle:Set(false)
-        return
-    end
-
-    farmingMobs = Value
-    if Value then
-        coroutine.wrap(function()
-            while farmingMobs do
-                for _, folderName in ipairs(worlds) do
-                    if not farmingMobs then 
-                        print("Farming stopped")
-                        break 
-                    end
-                    local currentFolder = mobFolder:FindFirstChild(folderName)
-                    if currentFolder then
-                        for _, mob in ipairs(currentFolder:GetChildren()) do
-                            if not farmingMobs then 
-                                print("Farming stopped")
-                                break 
-                            end
-                            if mob and mob.Name == selectedMob and mob:GetAttribute("Dead") ~= true then
-                                local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+            local mobFolder = workspace:FindFirstChild("Server")
+            if mobFolder then
+                mobFolder = mobFolder:FindFirstChild("WorldMobs")
+                if mobFolder then
+                    for _, worldFolder in ipairs(mobFolder:GetChildren()) do
+                        if not farmingState.isActive then break end
+                        
+                        for _, mob in ipairs(worldFolder:GetChildren()) do
+                            if not farmingState.isActive then break end
+                            
+                            if mob and mob.Name == farmingState.selectedMob and mob:GetAttribute("Dead") ~= true then
+                                local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Linear)
                                 local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
                                 tween:Play()
 
-                                local mobDefeated = false
-                                local attributeChanged
-                                attributeChanged = mob:GetAttributeChangedSignal("Dead"):Connect(function()
-                                    if mob and mob:GetAttribute("Dead") == true then
-                                        mobDefeated = true
-                                        attributeChanged:Disconnect()
-                                        tween:Cancel()
+                                farmingState.currentConnection = mob:GetAttributeChangedSignal("Dead"):Connect(function()
+                                    if mob:GetAttribute("Dead") == true then
+                                        cleanupFarming()
+                                        task.wait(0.1)
                                     end
                                 end)
+
+                                local startWait = tick()
                                 repeat
-                                    task.wait()
-                                until mobDefeated or not farmingMobs
+                                    task.wait(0.1)
+                                    if tick() - startWait > 10 then
+                                        cleanupFarming()
+                                        break
+                                    end
+                                until not farmingState.isActive or not mob.Parent or mob:GetAttribute("Dead") == true
                                 
-                                task.wait(1)
+                                cleanupFarming()
                             end
                         end
                     end
                 end
-                task.wait()
             end
-        end)()
-    end
+            task.wait(0.1)
+        end
+    end)()
 end
 
-        local farmToggle = Tab:CreateToggle({
-            Name = "Auto Farm Selected Mob",
-            CurrentValue = false,
-            Flag = "auto_farm_selected",
-            Callback = function(Value)
-                toggleMobFarming(Value)
-            end,
-        })
-    else
-        warn("WorldMobs folder not found")
-    end
-else
-    warn("Server folder not found")
+local function stopFarming()
+    farmingState.isActive = false
+    cleanupFarming()
 end
+
+local function getAvailableMobs()
+    local mobNames = {}
+    local seenMobs = {}
+    
+    local mobFolder = workspace:FindFirstChild("Server")
+    if mobFolder then
+        mobFolder = mobFolder:FindFirstChild("WorldMobs")
+        if mobFolder then
+            for _, worldFolder in ipairs(mobFolder:GetChildren()) do
+                for _, mob in ipairs(worldFolder:GetChildren()) do
+                    if not seenMobs[mob.Name] then
+                        table.insert(mobNames, mob.Name)
+                        seenMobs[mob.Name] = true
+                    end
+                end
+            end
+        end
+    end
+    table.sort(mobNames)
+    return mobNames
+end
+
+local mobDropdown = Tab:CreateDropdown({
+    Name = "Select Mob to Farm",
+    Options = getAvailableMobs(),
+    CurrentOption = {},
+    MultipleOptions = false,
+    Flag = "mob_selection",
+    Callback = function(selected)
+        farmingState.selectedMob = selected[1]
+    end,
+})
+
+local refreshButton = Tab:CreateButton({
+    Name = "Refresh Mob List",
+    Callback = function()
+        mobDropdown:Refresh(getAvailableMobs())
+    end,
+})
+
+local farmToggle = Tab:CreateToggle({
+    Name = "Auto Farm Selected Mob",
+    CurrentValue = false,
+    Flag = "auto_farm_selected",
+    Callback = function(Value)
+        if Value then
+            if not farmingState.selectedMob then
+                farmToggle:Set(false)
+                return
+            end
+            startFarming()
+        else
+            stopFarming()
+        end
+    end,
+})
