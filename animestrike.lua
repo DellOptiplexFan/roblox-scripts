@@ -990,16 +990,28 @@ if mobFolder then
         })
 
 local function toggleMobFarming(Value)
+    if Value and not selectedMob then
+        warn("No mob selected!")
+        farmToggle:Set(false)
+        return
+    end
+
     farmingMobs = Value
-    if Value and selectedMob then
+    if Value then
         coroutine.wrap(function()
             while farmingMobs do
                 for _, folderName in ipairs(worlds) do
-                    if not farmingMobs then break end
+                    if not farmingMobs then 
+                        print("Farming stopped")
+                        break 
+                    end
                     local currentFolder = mobFolder:FindFirstChild(folderName)
                     if currentFolder then
                         for _, mob in ipairs(currentFolder:GetChildren()) do
-                            if not farmingMobs then break end
+                            if not farmingMobs then 
+                                print("Farming stopped")
+                                break 
+                            end
                             if mob and mob.Name == selectedMob and mob:GetAttribute("Dead") ~= true then
                                 local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
                                 local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
@@ -1017,8 +1029,7 @@ local function toggleMobFarming(Value)
                                 repeat
                                     task.wait()
                                 until mobDefeated or not farmingMobs
-
-                                print("Mob defeated, moving to next...")
+                                
                                 task.wait(1)
                             end
                         end
@@ -1027,8 +1038,6 @@ local function toggleMobFarming(Value)
                 task.wait()
             end
         end)()
-    elseif Value then
-        warn("No mob selected!")
     end
 end
 
