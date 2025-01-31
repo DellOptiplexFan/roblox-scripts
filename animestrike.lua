@@ -980,43 +980,48 @@ if mobFolder then
             end,
         })
 
-        local function toggleMobFarming(Value)
-            farmingMobs = Value
-            if Value and selectedMob then
-                coroutine.wrap(function()
-                    while farmingMobs do
-                        for _, folderName in ipairs(worlds) do
+local function toggleMobFarming(Value)
+    farmingMobs = Value
+    if Value and selectedMob then
+        coroutine.wrap(function()
+            while farmingMobs do
+                for _, folderName in ipairs(worlds) do
+                    if not farmingMobs then break end
+                    local currentFolder = mobFolder:FindFirstChild(folderName)
+                    if currentFolder then
+                        for _, mob in ipairs(currentFolder:GetChildren()) do
                             if not farmingMobs then break end
-                            local currentFolder = mobFolder:FindFirstChild(folderName)
-                            if currentFolder then
-                                for _, mob in ipairs(currentFolder:GetChildren()) do
-                                    if not farmingMobs then break end
-                                    if mob.Name == selectedMob then
-                                        local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-                                        local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
-                                        tween:Play()
+                            if mob and mob.Name == selectedMob and mob:GetAttribute("Dead") ~= true then
+                                local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+                                local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
+                                tween:Play()
 
-                                        if mob:GetAttribute("Dead") ~= true then
-                                            local attributeChanged
-                                            attributeChanged = mob:GetAttributeChangedSignal("Dead"):Connect(function()
-                                                if mob:GetAttribute("Dead") == true then
-                                                    attributeChanged:Disconnect()
-                                                end
-                                            end)
-                                            mob:GetAttributeChangedSignal("Dead"):Wait()
-                                        end
-                                        print("Mob defeated, moving to next...")
+                                local mobDefeated = false
+                                local attributeChanged
+                                attributeChanged = mob:GetAttributeChangedSignal("Dead"):Connect(function()
+                                    if mob and mob:GetAttribute("Dead") == true then
+                                        mobDefeated = true
+                                        attributeChanged:Disconnect()
+                                        tween:Cancel()
                                     end
-                                end
+                                end)
+                                repeat
+                                    task.wait()
+                                until mobDefeated or not farmingMobs
+
+                                print("Mob defeated, moving to next...")
+                                task.wait(1)
                             end
                         end
-                        task.wait()
                     end
-                end)()
-            elseif Value then
-                warn("No mob selected!")
+                end
+                task.wait()
             end
-        end
+        end)()
+    elseif Value then
+        warn("No mob selected!")
+    end
+end
 
         local farmToggle = Tab:CreateToggle({
             Name = "Auto Farm Selected Mob",
