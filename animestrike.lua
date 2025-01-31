@@ -522,6 +522,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningSpectralPower do
+             task.wait(0.25)
                 local args = {
                     [1] = "SpectralPower",
                     [2] = "Roll",
@@ -552,6 +553,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningAlienPower do
+             task.wait(0.25)
                 local args = {
                     [1] = "AlienPower",
                     [2] = "Roll",
@@ -582,6 +584,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningNazareRing do
+             task.wait(0.25)
                 local args = {
                     [1] = "NazareRing",
                     [2] = "Roll",
@@ -628,6 +631,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningKagune do
+             task.wait(0.25)
                 local args = {
                     [1] = "Kagunes",
                     [2] = "Roll",
@@ -659,6 +663,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningSecretsofTempest do
+             task.wait(0.25)
                 local args = {
                     [1] = "SecretsTempest",
                     [2] = "Roll",
@@ -705,6 +710,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningCrew do
+             task.wait(0.25)
                 local args = {
                     [1] = "Crew",
                     [2] = "Roll",
@@ -737,6 +743,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningDevilsChains do
+             task.wait(0.25)
                 local args = {
                     [1] = "Devil'sChains",
                     [2] = "Roll",
@@ -780,6 +787,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningRaces do
+             task.wait(0.25)
                 local args = {
                     [1] = "Races",
                     [2] = "Roll",
@@ -812,6 +820,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningDeity do
+             task.wait(0.25)
                 local args = {
                     [1] = "Deity",
                     [2] = "Roll",
@@ -992,7 +1001,7 @@ local function toggleMobFarming(Value)
                         for _, mob in ipairs(currentFolder:GetChildren()) do
                             if not farmingMobs then break end
                             if mob and mob.Name == selectedMob and mob:GetAttribute("Dead") ~= true then
-                                local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+                                local tweenInfo = TweenInfo.new(0, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
                                 local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = mob.CFrame})
                                 tween:Play()
 
