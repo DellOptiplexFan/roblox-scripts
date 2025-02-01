@@ -34,7 +34,7 @@ local Tab = Window:CreateTab("Auto Use", 4483362458)
 local Section = Tab:CreateSection("Powers")
 
 
---locals and stuff
+--Auto Powers
 local spinningKekkeiGenkai = false
 local spinningElementalAffinity = false
 local spinningPassive = false
@@ -63,7 +63,7 @@ local spinningShadowPower = false
 local spinningEgo = false
 
 local autospinKekkeiGenkai = Tab:CreateToggle({
-   Name = "Autospin KekkeiGenkai",
+   Name = "Autospin Kekkei Genkai",
    CurrentValue = false,
    Flag = "autospin_kekkeigenkai",
    Callback = function(Value)
@@ -71,7 +71,7 @@ local autospinKekkeiGenkai = Tab:CreateToggle({
       if Value then
          coroutine.wrap(function()
             while spinningKekkeiGenkai do
-               task.wait(0.25)
+               task.wait(0.1)
                local args = {
                   [1] = "KekkeiGenkai",
                   [2] = "Roll",
@@ -107,7 +107,7 @@ local autospinKekkeiGenkai = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningElementalAffinity do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "ElementalAffinity",
                     [2] = "Roll",
@@ -137,7 +137,7 @@ local autospinKekkeiGenkai = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningPassive do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Passives",
                     [2] = "Roll",
@@ -185,7 +185,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningTransformation do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Transformations",
                     [2] = "Roll",
@@ -223,7 +223,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningDevilFruit do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "PieceFruits",
                     [2] = "Roll",
@@ -257,7 +257,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningClass do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Classes",
                     [2] = "Roll",
@@ -292,7 +292,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningCursedTechnique do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "CursedTechnique",
                     [2] = "Roll",
@@ -324,7 +324,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningTitanPower do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "TitanPower",
                     [2] = "Roll",
@@ -357,7 +357,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningBankai do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Bankai",
                     [2] = "Roll",
@@ -394,7 +394,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningHeroPower do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "HeroPower",
                     [2] = "Roll",
@@ -427,7 +427,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningTitles do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Titles",
                     [2] = "Roll",
@@ -461,7 +461,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningStand do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "Stand",
                     [2] = "Roll",
@@ -494,7 +494,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningKaijuPower do
-                task.wait(0.25)
+                task.wait(0.1)
                 local args = {
                     [1] = "KaijuPower",
                     [2] = "Roll",
@@ -526,7 +526,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningSpectralPower do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "SpectralPower",
                     [2] = "Roll",
@@ -557,7 +557,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningAlienPower do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "AlienPower",
                     [2] = "Roll",
@@ -588,7 +588,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningNazareRing do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "NazareRing",
                     [2] = "Roll",
@@ -635,7 +635,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningKagune do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "Kagunes",
                     [2] = "Roll",
@@ -667,7 +667,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningSecretsofTempest do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "SecretsTempest",
                     [2] = "Roll",
@@ -714,7 +714,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningCrew do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "Crew",
                     [2] = "Roll",
@@ -747,7 +747,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningDevilsChains do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "Devil'sChains",
                     [2] = "Roll",
@@ -791,7 +791,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningRaces do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "Races",
                     [2] = "Roll",
@@ -824,7 +824,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningDeity do
-             task.wait(0.25)
+             task.wait(0.1)
                 local args = {
                     [1] = "Deity",
                     [2] = "Roll",
@@ -871,7 +871,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningFirePower do
-             task.wait(0.25)
+             task.wait(0.1)
                local args = {
                   [1] = "FirePower",
                   [2] = "Roll",
@@ -904,7 +904,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningServant do
-             task.wait(0.25)
+             task.wait(0.1)
                local args = {
                   [1] = "Servant",
                   [2] = "Roll",
@@ -937,7 +937,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningShadowPower do
-             task.wait(0.25)
+             task.wait(0.1)
                local args = {
                   [1] = "ShadowPower",
                   [2] = "Roll",
@@ -984,7 +984,7 @@ local autospinTransformation = Tab:CreateToggle({
        if Value then
           coroutine.wrap(function()
              while spinningEgo do
-             task.wait(0.25)
+             task.wait(0.1)
                local args = {
                   [1] = "Ego",
                   [2] = "Roll",
@@ -1001,6 +1001,214 @@ local autospinTransformation = Tab:CreateToggle({
                   }
                }
                game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                           
+             end
+          end)()
+       end
+    end,
+ })
+
+--Auto Sentinel
+
+local Section = Tab:CreateSection("Sentinals")
+
+local spinningFirstSentinal = false
+local spinningSecondSentinal = false
+local upgradingSentinalAttackSpeed = false
+local upgradingSentinalDamage = false
+local upgradingSentinalPower = false
+local upgradingSentinalRange = false
+
+   local autospinFirstSentinal = Tab:CreateToggle({
+    Name = "Autospin First Sentinal",
+    CurrentValue = false,
+    Flag = "autospin_firstsentinal",
+    Callback = function(Value)
+       spinningFirstSentinal = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningFirstSentinal do
+             task.wait(0.1)
+               local args = {
+                  [1] = "Sentinel",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Sea King"] = false,
+                     ["Colossus"] = false,
+                     ["Kojere"] = false,
+                     ["Azin"] = false,
+                     ["Meridas"] = false,
+                     ["Panda"] = false,
+                     ["Diablo"] = false
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                     
+             end
+          end)()
+       end
+    end,
+ })
+
+    local autospinFirstSentinal = Tab:CreateToggle({
+    Name = "Autospin Second Sentinal",
+    CurrentValue = false,
+    Flag = "autospin_secondsentinal",
+    Callback = function(Value)
+       spinningSecondSentinal = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningSecondSentinal do
+            task.wait(0.1)
+               local args = {
+                  [1] = "Sentinel2",
+                  [2] = "Roll",
+                  [3] = {
+                     ["Sea King"] = false,
+                     ["Colossus"] = false,
+                     ["Kojere"] = false,
+                     ["Azin"] = false,
+                     ["Meridas"] = false,
+                     ["Panda"] = false,
+                     ["Diablo"] = false
+                  }
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                                     
+             end
+          end)()
+       end
+    end,
+ })
+
+   local autoUpgradeAttackSpeed = Tab:CreateToggle({
+    Name = "Autoupgrade Attack Speed",
+    CurrentValue = false,
+    Flag = "autoupgrade_attackspeed",
+    Callback = function(Value)
+       upgradingSentinalAttackSpeed = Value
+       if Value then
+          coroutine.wrap(function()
+             while upgradingSentinalAttackSpeed do
+            task.wait(0.1)
+               local args = {
+                  [1] = "SentinelUpgrades",
+                  [2] = "Upgrade",
+                  [3] = "Attack Speed"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                         
+             end
+          end)()
+       end
+    end,
+ })
+
+    local autoUpgradeAttackSpeed = Tab:CreateToggle({
+    Name = "Autoupgrade Damage",
+    CurrentValue = false,
+    Flag = "autoupgrade_damage",
+    Callback = function(Value)
+       upgradingSentinalDamage = Value
+       if Value then
+          coroutine.wrap(function()
+             while upgradingSentinalDamage do
+            task.wait(0.1)
+               local args = {
+                  [1] = "SentinelUpgrades",
+                  [2] = "Upgrade",
+                  [3] = "Damage"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                         
+             end
+          end)()
+       end
+    end,
+ })
+
+     local autoUpgradeAttackSpeed = Tab:CreateToggle({
+    Name = "Autoupgrade Power",
+    CurrentValue = false,
+    Flag = "autoupgrade_power",
+    Callback = function(Value)
+       upgradingSentinalPower = Value
+       if Value then
+          coroutine.wrap(function()
+             while upgradingSentinalPower do
+            task.wait(0.1)
+               local args = {
+                  [1] = "SentinelUpgrades",
+                  [2] = "Upgrade",
+                  [3] = "Power"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                         
+             end
+          end)()
+       end
+    end,
+ })
+
+      local autoUpgradeAttackSpeed = Tab:CreateToggle({
+    Name = "Autoupgrade Range",
+    CurrentValue = false,
+    Flag = "autoupgrade_range",
+    Callback = function(Value)
+       upgradingSentinalPower = Value
+       if Value then
+          coroutine.wrap(function()
+             while upgradingSentinalPower do
+            task.wait(0.1)
+               local args = {
+                  [1] = "SentinelUpgrades",
+                  [2] = "Upgrade",
+                  [3] = "Range"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                         
+             end
+          end)()
+       end
+    end,
+ })
+
+
+--Auto Merchant
+local Section = Tab:CreateSection("Auto Merchant")
+
+local spinningOtherwordlyMerchant = false
+local spinningTimeTravlerMerchant = false
+
+   local autoSpinOtherwordlyMerchant = Tab:CreateToggle({
+    Name = "Autospin Otherworldly Merchant",
+    CurrentValue = false,
+    Flag = "autospin_otherworldlymerchant",
+    Callback = function(Value)
+       spinningOtherwordlyMerchant = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningOtherwordlyMerchant do
+            task.wait(0.1)
+               local args = {
+                  [1] = "OtherworldlyMerchant",
+                  [2] = "Roll"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                       
+             end
+          end)()
+       end
+    end,
+ })
+
+    local autoSpinOtherwordlyMerchant = Tab:CreateToggle({
+    Name = "Autospin Time Traveler Merchant",
+    CurrentValue = false,
+    Flag = "autospin_timetravelerversion",
+    Callback = function(Value)
+       spinningTimeTravlerMerchant = Value
+       if Value then
+          coroutine.wrap(function()
+             while spinningTimeTravlerMerchant do
+            task.wait(0.1)
+               local args = {
+                  [1] = "TimeTravelerMerchant",
+                  [2] = "Roll"
+               }
+               game:GetService("ReplicatedStorage"):WaitForChild("Bridge"):FireServer(unpack(args))                                                                                                                                                                                       
              end
           end)()
        end
